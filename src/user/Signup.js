@@ -27,8 +27,6 @@ const Signup = () => {
         }
     )
 
-
-
     const clickSubmit = e => {
         e.preventDefault();
         signup({ name, email, password })
