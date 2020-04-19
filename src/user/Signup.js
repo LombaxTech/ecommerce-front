@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import Layout from '../core/Layout'
+import { API } from '../config';
 
 // const Signup = () => <div>signup</div>
 
@@ -13,6 +14,8 @@ const Signup = () => {
         sucsess: false
     });
 
+    const { name, email, password } = values;
+
     const handleChange = name => (
         event => {
             setValues({
@@ -22,6 +25,25 @@ const Signup = () => {
             });
         }
     )
+
+    const signup = (user) => {
+        // console.log(name, email, password);
+        fetch(`${API}/signup`, {
+            method: 'POST',
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(user)
+        })
+            .then(res => res.json())
+            .catch(err => console.error(err));
+    }
+
+    const clickSubmit = e => {
+        e.preventDefault();
+        signup({ name, email, password });
+    }
 
     const signUpForm = () => (
         <form>
@@ -40,7 +62,7 @@ const Signup = () => {
                 <input onChange={handleChange('password')} type="password" className="form-control" />
             </div>
 
-            <button className="btn btn-primary">Sign up</button>
+            <button onClick={clickSubmit} className="btn btn-primary">Sign up</button>
         </form>
     )
 
@@ -51,7 +73,8 @@ const Signup = () => {
             className="container col-md-8 offset-md-2"
         >
             {signUpForm()}
-            {JSON.stringify(values)}
+            {/* {JSON.stringify(values)} */}
+            {name}
         </Layout>
     );
 
