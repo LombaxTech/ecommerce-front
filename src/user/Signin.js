@@ -1,15 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Layout from '../core/Layout';
-import { API } from '../config';
-// const Signin = () => <div>sign in</div>
+import { Link } from 'react-router-dom';
+import { signin } from '../auth/index';
 
-const Signin = () => (
-    <Layout
-        title="Sign in"
-        description="sign in to the ecommerce app"
-    >
-        {API}
-    </Layout>
-)
+const Signin = () => {
+
+    const [values, setValues] = useState({
+        name: '',
+        email: '',
+        password: '',
+        error: '',
+        success: false
+    });
+
+    const { name, email, password, error, success } = values;
+
+    const clickSubmit = e => {
+        e.preventDefault();
+        setValues({ ...values, error: false });
+        signin({ email, password })
+            .then(data => {
+                if (data.error) {
+                    setValues({ ...values, error: data.error, success: false })
+                } else {
+                    setValues({
+                        ...values,
+                        name: '',
+                        email: '',
+                        password: '',
+                        error: '',
+                        success: true
+                    })
+                }
+            })
+    }
+
+}
 
 export default Signin;
