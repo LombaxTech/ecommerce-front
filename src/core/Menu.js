@@ -26,6 +26,16 @@ const Menu = ({ history }) => (
                 </Link>
             </li>
 
+            <li className="nav-item">
+                <Link
+                    className="nav-link"
+                    style={isActive(history, '/dashboard')}
+                    to="/dashboard"
+                >
+                    dashboard
+                </Link>
+            </li>
+
             {/* {use ternerary operator to show} */}
 
             {!isAuthenticated() && (
