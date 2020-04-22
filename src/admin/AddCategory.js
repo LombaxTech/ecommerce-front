@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Layout from '../core/Layout';
 import { isAuthenticated } from '../auth/index';
 import { Link } from 'react-router-dom';
-import { createCategory } from './apiAdmin';
+import { createCategory, testCreateCategory } from './apiAdmin';
 
 const AddCategory = () => {
 
@@ -15,14 +15,15 @@ const AddCategory = () => {
 
     const handleChange = e => {
         setCategoryName(e.target.value);
-        setError('')
+        setError('');
+        setSuccess(false)
     }
 
     const clickSubmit = e => {
         e.preventDefault();
         setError('');
         setSuccess(false);
-        console.log(_id, token, categoryName)
+        // console.log(_id, token, categoryName)
         createCategory(_id, token, categoryName)
             .then(data => {
                 // console.log(data)
@@ -31,8 +32,23 @@ const AddCategory = () => {
                 } else {
                     setError('');
                     setSuccess(true);
+                    // setCategoryName('');
                 }
             })
+
+        // testCreateCategory()
+        //     .then(data => {
+        //         if (data.error) {
+        //             setError(data.error);
+        //         } else {
+        //             setError('');
+        //             setSuccess(true);
+        //             // console.log(data);
+        //         }
+        //     })
+
+        // testCreateCategory()
+        //     .then(data => console.log(data))
     }
 
     const newCategoryForm = () => (
@@ -44,6 +60,7 @@ const AddCategory = () => {
                     type="text"
                     className="form-control"
                     onChange={handleChange}
+                    required
                 />
             </div>
             <button className="btn btn-primary-outline">
@@ -64,6 +81,14 @@ const AddCategory = () => {
         }
     }
 
+    const goBack = () => (
+        <div className="mt-5">
+            <Link to="/admin/dashboard" className="text-warning">
+                Back to Dashboard
+            </Link>
+        </div>
+    )
+
     return (
         <Layout
             title="Create a Category"
@@ -75,6 +100,7 @@ const AddCategory = () => {
                     {showSuccess()}
                     {showError()}
                     {newCategoryForm()}
+                    {goBack()}
                 </div>
             </div>
         </Layout>
