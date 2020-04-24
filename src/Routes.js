@@ -8,6 +8,7 @@ import Dashboard from './user/UserDashboard';
 import AdminRoute from './auth/AdminRoute';
 import AdminDashboard from './user/AdminDashboard';
 import AddCategory from './admin/AddCategory';
+import AddProduct from './admin/AddProduct';
 
 // import Menu from './core/Menu';
 
@@ -29,7 +30,16 @@ const Routes = () => {
                     exact
                     component={AdminDashboard}
                 />
-                <Route path="/create/category" exact component={AddCategory} />
+                <AdminRoute
+                    path="/create/category"
+                    exact
+                    component={AddCategory}
+                />
+                <AdminRoute
+                    path="/create/product"
+                    exact
+                    component={AddProduct}
+                />
             </Switch>
         </BrowserRouter>
     )

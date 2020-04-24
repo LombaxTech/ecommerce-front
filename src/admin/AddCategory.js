@@ -23,7 +23,6 @@ const AddCategory = () => {
         e.preventDefault();
         setError('');
         setSuccess(false);
-        // console.log(_id, token, categoryName)
         createCategory(_id, token, categoryName)
             .then(data => {
                 // console.log(data)
@@ -35,20 +34,6 @@ const AddCategory = () => {
                     // setCategoryName('');
                 }
             })
-
-        // testCreateCategory()
-        //     .then(data => {
-        //         if (data.error) {
-        //             setError(data.error);
-        //         } else {
-        //             setError('');
-        //             setSuccess(true);
-        //             // console.log(data);
-        //         }
-        //     })
-
-        // testCreateCategory()
-        //     .then(data => console.log(data))
     }
 
     const newCategoryForm = () => (
