@@ -143,8 +143,12 @@ const AddProduct = () => {
                     onChange={handleChange('category')}
                     className="form-control"
                 >
-                    <option value="5e9733aab9deac83fc54eb02">Manga</option>
-                    <option value="5e9733aab9deac83fc54eb02">Comics</option>
+                    <option>Please Select</option>
+                    {categories && categories.map((c, i) => (
+                        <option key={i} value={c._id}>{c.name}</option>
+                    ))}
+                    {/* <option value="5e9733aab9deac83fc54eb02">Manga</option>
+                    <option value="5e9733aab9deac83fc54eb02">Comics</option> */}
                 </select>
             </div>
 
@@ -154,6 +158,7 @@ const AddProduct = () => {
                     onChange={handleChange('shipping')}
                     className="form-control"
                 >
+                    <option>Please Select</option>
                     <option value="0">No</option>
                     <option value="1">Yes</option>
                 </select>
@@ -171,7 +176,29 @@ const AddProduct = () => {
 
             <button className="btn btn-outline-primary">Create Product</button>
 
-        </form>
+        </form >
+    )
+
+    const showError = () => (
+        <div className="alert alert-danger" style={{ display: error ? '' : 'none' }}>
+            {error}
+        </div>
+    )
+
+    const showSuccess = () => (
+        <div className="alert alert-info" style={{ display: createdProduct ? '' : 'none' }}>
+            <h2>{createdProduct} has been created</h2>
+        </div>
+    )
+
+    const showLoading = () => (
+        loading && (
+            <div className="alert alert-success">
+                <h2>
+                    Loading...
+                </h2>
+            </div>
+        )
     )
 
     return (
@@ -181,7 +208,11 @@ const AddProduct = () => {
         >
             <div className="row">
                 <div className="col-md-8 offset-md-2">
+                    {showLoading()}
+                    {showSuccess()}
+                    {showError()}
                     {newPostForm()}
+                    {console.log(formData)}
                     {/* {console.log(categories)} */}
                     {/* {categories.map(categoryItem => <h1>{categoryItem}</h1>)} */}
                 </div>
